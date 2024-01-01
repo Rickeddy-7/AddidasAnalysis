@@ -1,3 +1,4 @@
-# Addidas Sales Analysis
+# Adidas Sales Analysis
 
-<kbd>!<kbd>Adidas AG (adidas) designs, manufactures and markets athletic and sports lifestyle products.
+Adidas AG (adidas) designs, manufactures and markets athletic and sports lifestyle products.
+
