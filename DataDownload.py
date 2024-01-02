@@ -4,7 +4,7 @@ import zipfile
 from kaggle.api.kaggle_api_extended import KaggleApi
 
 
-def run_main():
+def download_data():
     '''download the dataset using the kaggle api'''
 
     # We first create an api instance and verify our api key with the authenticate method call
@@ -23,8 +23,3 @@ def run_main():
         file.extractall()
 
     os.remove(zip_file)
-
-
-
-if __name__ == "__main__":
-    run_main()
