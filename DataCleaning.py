@@ -7,9 +7,10 @@ def clean_data():
     '''preprocess the data for analysis'''
 
     df = pd.read_csv(r'C:\Users\ricke\AddidasAnalysis\adidas_usa.csv')
-    df = remove_columns(df)
+    remove_columns(df)  
+    format_price(df)
     # call other functions...
-    df.to_csv()
+    df.to_csv('adidas_usa_clean.csv', index=False)
 
 
 def format_price(df: pd.DataFrame):
@@ -21,7 +22,6 @@ def format_price(df: pd.DataFrame):
 
 
 
-
 def remove_columns(df: pd.DataFrame):
     '''delete unwanted fields'''
 
@@ -30,13 +30,13 @@ def remove_columns(df: pd.DataFrame):
 
 
 def format_date(df: pd.DataFrame):
-    '''rename the 'crawled_at' to 'date' and remove the time'''
+    '''rename the 'crawled_at' field to 'date' and remove the time'''
 
-
+    df.rename(columns={'crawled_at': 'date'}, inplace=True)
     
 
 def format_gender(df: pd.DataFrame):
-    '''rename 'breadcrumbs' to 'gender' and remove the category'''
+    '''rename 'breadcrumbs' field to 'gender' and remove the category'''
 
 
 
@@ -49,4 +49,3 @@ def add_features(df: pd.DataFrame):
     # create a new field for the revenue in ZAR
 
     # create a new field for the discounted amount(difference of selling price and original price) in ZAR
-
