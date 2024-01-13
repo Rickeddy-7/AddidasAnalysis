@@ -18,8 +18,9 @@ def download_data():
     )
 
     # unzip and delete the file
-    zip_file = os.getcwd() + '/adidas_usa.csv.zip'
+    zip_file = 'adidas_usa.csv.zip'
     with zipfile.ZipFile(zip_file, 'r') as file:
         file.extractall()
 
     os.remove(zip_file)
+    print("successfully downloaded data.\n".upper())
