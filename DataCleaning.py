@@ -2,6 +2,7 @@
 import pandas as pd
 import numpy as np
 import requests as rq
+import os
 
 
 def clean_data(api_key: str):
@@ -28,7 +29,7 @@ def clean_data(api_key: str):
     df['sub_category'] = df['sub_category'].str.split('/').str[0]
 
     # create a new field for the currency in ZAR
-    rate: float = get_exchange_rate(api_key)
+    rate: float = get_exchange_rate()
     df['original_price_zar'] = list(map(lambda x: round(x*rate, 2), df['original_price']))
 
     # create a new field for the revenue in ZAR
@@ -42,13 +43,14 @@ def clean_data(api_key: str):
     df.to_csv('adidas_usa_clean.csv', index=False)
 
 
-def get_exchange_rate(api_key: str):
+def get_exchange_rate():
     '''returns the current exchange rate for usd/zar as a float'''
 
+    api_key: str = os.getenv('EXCH_API')
     response = rq.get(f"https://v6.exchangerate-api.com/v6/{api_key}/latest/USD")
     rate: float = response.json().get('conversion_rates').get('ZAR')
     
     return rate
 
-# clean_data('a1c6d810970de6cc81ac6273')
+# clean_data()
 
