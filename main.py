@@ -9,7 +9,7 @@ def run_main():
 
     print('fetching data..'.upper())
     dd.download_data()
-    exch_rate_api_key = str(os.getenv('exchange_api'))
+    exch_rate_api_key: str = os.getenv('EXCH_API')
     dc.clean_data(exch_rate_api_key)
 
 
