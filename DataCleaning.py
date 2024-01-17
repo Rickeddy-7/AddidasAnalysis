@@ -46,8 +46,9 @@ def get_exchange_rate(api_key: str):
     '''returns the current exchange rate for usd/zar as a float'''
 
     response = rq.get(f"https://v6.exchangerate-api.com/v6/{api_key}/latest/USD")
-    rate: float = response.json()['conversion_rates']['ZAR']
+    rate: float = response.json().get('conversion_rates').get('ZAR')
     
     return rate
 
 # clean_data('a1c6d810970de6cc81ac6273')
+
