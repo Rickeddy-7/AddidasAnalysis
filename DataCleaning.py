@@ -5,7 +5,7 @@ import requests as rq
 import os
 
 
-def clean_data(api_key: str):
+def clean_data():
     '''preprocess the data for analysis'''
 
     df = pd.read_csv('adidas_usa.csv')
@@ -28,13 +28,14 @@ def clean_data(api_key: str):
     # remove the main category from 'sub_category'
     df['sub_category'] = df['sub_category'].str.split('/').str[0]
 
-    # create a new field for the currency in ZAR
     rate: float = get_exchange_rate()
-    df['original_price_zar'] = list(map(lambda x: round(x*rate, 2), df['original_price']))
+    # create a new field for the revenue in ZAR, directly after the selling price in usd
+    selling_price_zar = list(map(lambda x: round(x*rate, 2), df['selling_price']))
+    df.insert(2, 'selling_price_zar', selling_price_zar)
 
-    # create a new field for the revenue in ZAR
-    df['selling_price_zar'] = list(map(lambda x: round(x*rate, 2), df['selling_price']))
-    
+    # create a new field for the currency in ZAR, directly after the original price in usd
+    original_price_zar = list(map(lambda x: round(x*rate, 2), df['original_price']))
+    df.insert(4, 'original_price_zar', original_price_zar)
 
     # create a new field for the discounted amount(difference of selling price and original price) in ZAR
 
