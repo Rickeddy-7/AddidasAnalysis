@@ -30,16 +30,14 @@ def clean_data():
 
     rate: float = get_exchange_rate()
     # create a new field for the revenue in ZAR, directly after the selling price in usd
-    selling_price_zar = list(map(lambda x: round(x*rate, 2), df['selling_price']))
-    df.insert(2, 'selling_price_zar', selling_price_zar)
+    selling_price_zar = df['selling_price'].map(lambda x: round(x*rate, 2))
+    df.insert(3, 'selling_price_zar', selling_price_zar)
 
     # create a new field for the currency in ZAR, directly after the original price in usd
-    original_price_zar = list(map(lambda x: round(x*rate, 2), df['original_price']))
-    df.insert(4, 'original_price_zar', original_price_zar)
+    original_price_zar = df['original_price'].map(lambda x: round(x*rate, 2))
+    df.insert(5, 'original_price_zar', original_price_zar)
 
-    # create a new field for the discounted amount(difference of selling price and original price) in ZAR
-
-    # then write all the changes into a new excel file
+    # then write all the changes into a new file
     print("successfully cleaned data.\n".upper())
     df.to_csv('adidas_usa_clean.csv', index=False)
 
@@ -53,5 +51,5 @@ def get_exchange_rate():
     
     return rate
 
-# clean_data()
+clean_data()
 
